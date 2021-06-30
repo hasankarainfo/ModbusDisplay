@@ -188,7 +188,7 @@ namespace EasyModbus
             while (numbytes < bytesToRead)
             {
                 numbytes = serialport.GetAvailableInputBufferSize();
-                System.Threading.Thread.Sleep(0);
+                System.Threading.Thread.Sleep(1);
                 if ((DateTime.Now.Ticks - dateTimeLastRead.Ticks) > ticksWait)
                     break;
             }

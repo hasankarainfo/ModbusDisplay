@@ -16,9 +16,8 @@ namespace ModbusDisplay
     public partial class Form1 : Form
     {
 
+
         public static ModbusClient mb = new ModbusClient();
-
-
 
         bool SerialTry = false;
         bool SerialReconn = false;
@@ -191,8 +190,16 @@ namespace ModbusDisplay
             myDialog.Multiselect = true;
             DialogResult result = DialogResult.None;
 
-            result = myDialog.ShowDialog();
+            Thread dialogThread = new Thread((delegate ()
+            {
+                result = myDialog.ShowDialog();
 
+            }));
+            dialogThread.SetApartmentState(ApartmentState.STA);
+            dialogThread.Start();
+            while (result == DialogResult.None) Thread.Sleep(100);
+
+           
             if (result == DialogResult.OK)
             {
                 foreach (String file in myDialog.FileNames)
@@ -204,7 +211,7 @@ namespace ModbusDisplay
                     nFormThread.Start(file);
                 }
             }
-
+           
 
         }
 

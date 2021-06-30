@@ -215,7 +215,7 @@ namespace ModbusDisplay
             short addrNext = 0;
             while (true)
             {
-                
+
                 if (!ThreadsRunning) break;
 
 
@@ -230,7 +230,7 @@ namespace ModbusDisplay
                 {
                     //this.BeginInvoke((MethodInvoker)delegate
                     //{
-                   
+
 
 
                     tAxisMaxLen = (int)numericUpDown1.Value;
@@ -238,8 +238,8 @@ namespace ModbusDisplay
                     zg1.GraphPane.Title.Text = null;
                     zg1.GraphPane.XAxis.Title.Text = " ";
                     zg1.GraphPane.YAxis.Title.Text = " ";
-                    zg1.GraphPane.Chart.Fill.Color = SystemColors.ControlDark;
-                    zg1.GraphPane.Fill.Color = SystemColors.ControlDark;
+                    zg1.GraphPane.Chart.Fill.Color = SystemColors.ControlLight;
+                    zg1.GraphPane.Fill.Color = SystemColors.ControlLight;
                     //zg1.issh
                     zg1.GraphPane.CurveList.Clear();
                     lock (dgv)
@@ -290,6 +290,7 @@ namespace ModbusDisplay
                     do
                     {
                         if (NeedTableRefresh) break;
+                        if (!ThreadsRunning) break;
 
                         for (int i = 0; i < rows.Length && dgv.isRow(i); i++)
                         {
@@ -471,7 +472,7 @@ namespace ModbusDisplay
                             {
                                 do
                                 {
-                                    rows[i].grpLastVal = dgv.typValCnv( dgv.RegToLong(rows[i].reg, i),i);
+                                    rows[i].grpLastVal = dgv.typValCnv(dgv.RegToLong(rows[i].reg, i), i);
                                     rows[i].curve.Points[(int)TimLineRead].Y = rows[i].grpLastVal;
                                     rows[i].curve.Points[(int)TimLineRead].Tag = rows[i].grpLastVal;
                                 } while (false);
@@ -485,8 +486,8 @@ namespace ModbusDisplay
                 {
                     Thread.Sleep(1);
                 }
-                   
-                
+
+
 
                 /* (100 MS DELAY) GORSEL GUNECLLEME*/
                 if ((DateTime.Now.Ticks - dtPer.Ticks) > TimeSpan.TicksPerMillisecond * 100)
@@ -501,14 +502,19 @@ namespace ModbusDisplay
                     this.BeginInvoke((MethodInvoker)delegate
                     {
                         readDelayTime = (int)numStreamDel.Value;
+                        long okTotal = 0;
+                        long failTotal = 0;
 
                         /* Adres hucre yesil yada kirmizi renk atamasi yapilir*/
                         int vote = 0;
                         for (int i = 0; i < rows.Length && dgv.isRow(i); i++)
                         {
+                            if (!ThreadsRunning) break;
                             if (NeedTableRefresh) break;
                             long okTime = (rows[i].cntOk - rows[i].lastOk);
                             long failTime = (rows[i].cntFail - rows[i].lastFail);
+                            okTotal += rows[i].lastOk;
+                            failTotal += rows[i].lastFail;
 
                             Color addrColor;
                             if (okTime == 0 && failTime == 0)
@@ -535,6 +541,13 @@ namespace ModbusDisplay
                             rows[i].lastFail = rows[i].cntFail;
                         }
 
+                        /*OK VE FAIL LABEL GUNCELLEME*/
+                        {
+                            lblOk.Text = "O.K: "+okTotal.ToString();
+                            lblFail.Text = "Fail: " + failTotal.ToString();
+                        }
+
+
                         {/*Graph Stream Buton rengi yenileme*/
                             if (StreamGraphEn)
                             {
@@ -558,47 +571,48 @@ namespace ModbusDisplay
         {
             int row = e.RowIndex;
             int col = e.ColumnIndex;
+            if (rows.Length <= row) return;
 
-            if (col == dgv["En", row].ColumnIndex)
-            { 
+            if (col == dgv.Rows[row].Cells["En"].ColumnIndex)
+            {
                 rows[row].Changed = true;
             }
-            else if (col == dgv["Addr", row].ColumnIndex)
-            { 
+            else if (col == dgv.Columns["Addr"].Index)
+            {
                 rows[row].Changed = true;
             }
-            else if (col == dgv["Type", row].ColumnIndex)
-            { 
+            else if (col == dgv.Columns["Type"].Index)
+            {
                 rows[row].Changed = true;
             }
-            else if (col == dgv["Len", row].ColumnIndex)
-            { 
+            else if (col == dgv.Columns["Len"].Index)
+            {
                 rows[row].Changed = true;
 
             }
-            else if (col == dgv["Value", row].ColumnIndex)
-            { 
+            else if (col == dgv.Columns["Value"].Index)
+            {
                 rows[row].ChangeCol = "Value";
                 rows[row].Changed = true;
                 rows[row].mbSend = true;
                 mbSendCmd = true;
             }
-            else if (col == dgv["Hex", row].ColumnIndex)
-            { 
+            else if (col == dgv.Columns["Hex"].Index)
+            {
                 rows[row].ChangeCol = "Hex";
                 rows[row].Changed = true;
                 rows[row].mbSend = true;
                 mbSendCmd = true;
             }
-            else if (col == dgv["Bin", row].ColumnIndex)
+            else if (col == dgv.Columns["Bin"].Index)
             {
                 rows[row].ChangeCol = "Bin";
                 rows[row].Changed = true;
                 rows[row].mbSend = true;
                 mbSendCmd = true;
             }
-            else if (col == dgv["Ascii", row].ColumnIndex)
-            { 
+            else if (col == dgv.Columns["Ascii"].Index)
+            {
                 rows[row].ChangeCol = "Ascii";
                 rows[row].Changed = true;
                 rows[row].mbSend = true;
@@ -625,7 +639,7 @@ namespace ModbusDisplay
                     e.Handled = false;
 
             }
-            else if (col == dgv.Columns["Value"].Index )
+            else if (col == dgv.Columns["Value"].Index)
             {
                 e.Handled = true;
                 if (
@@ -707,7 +721,18 @@ namespace ModbusDisplay
         {
             SaveFileDialog myDialog = new SaveFileDialog();
             myDialog.Filter = "Table|*.xml";
-            if (myDialog.ShowDialog() == DialogResult.OK)
+
+            DialogResult result = DialogResult.None;
+            Thread dialogThread = new Thread((delegate ()
+            {
+                result = myDialog.ShowDialog();
+
+            }));
+            dialogThread.SetApartmentState(ApartmentState.STA);
+            dialogThread.Start();
+            while (result == DialogResult.None) Thread.Sleep(100);
+
+            if (result == DialogResult.OK)
             {
                 myDataSet.WriteXml(myDialog.FileName);
             }
@@ -736,7 +761,18 @@ namespace ModbusDisplay
         {
             OpenFileDialog myDialog = new OpenFileDialog();
             myDialog.Filter = "Table|*.xml";
-            if (myDialog.ShowDialog() == DialogResult.OK)
+
+            DialogResult result = DialogResult.None;
+            Thread dialogThread = new Thread((delegate ()
+            {
+                result = myDialog.ShowDialog();
+
+            }));
+            dialogThread.SetApartmentState(ApartmentState.STA);
+            dialogThread.Start();
+            while (result == DialogResult.None) Thread.Sleep(100);
+
+            if (result == DialogResult.OK)
             {
                 OpenXmlFile(myDialog.FileName);
             }

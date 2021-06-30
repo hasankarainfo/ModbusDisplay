@@ -109,7 +109,7 @@ namespace ModbusDisplay
 
             // datagridview kurulumu yapilir
             dgvCbEn.Width = 26;
-            dgvTbName.Width = 60;
+            dgvTbName.Width = 120;
             dgvCmbType.Width = 80;
             dgvNudLen.Width = 40;
             dgvTbAddr.Width = 80;
@@ -539,7 +539,7 @@ namespace ModbusDisplay
         //_ /__ /___ /____ /_____ /______ /_______ /________ /_________ /__________ /
         public bool chk(int row)
         {
-            lock (this)
+            //lock (this)
             {
                 if (isRow(row)) if (Rows[row].Cells["En"].Value != DBNull.Value)
                         return (bool)Rows[row].Cells["En"].Value;
@@ -550,7 +550,7 @@ namespace ModbusDisplay
         //_ /__ /___ /____ /_____ /______ /_______ /________ /_________ /__________ /
         public void chk(int row, bool val)
         {
-            lock (this)
+            //lock (this)
             {
                 if (isRow(row)) Rows[row].Cells["En"].Value = val;
             }
@@ -567,7 +567,7 @@ namespace ModbusDisplay
         //_ /__ /___ /____ /_____ /______ /_______ /________ /_________ /__________ /
         public string getValStr(string col, int row)
         {
-            lock (this)
+            //lock (this)
             {
                
                 if (isRow(row))
@@ -580,7 +580,7 @@ namespace ModbusDisplay
 
         public long getLen( int row)
         {
-            lock (this)
+            //lock (this)
             {
                 if (isRow(row))
                     if (Rows[row].Cells["Len"].Value != DBNull.Value)

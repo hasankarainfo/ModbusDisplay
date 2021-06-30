@@ -52,6 +52,8 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblOk = new System.Windows.Forms.Label();
+            this.lblFail = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitC1)).BeginInit();
             this.splitC1.Panel1.SuspendLayout();
             this.splitC1.Panel2.SuspendLayout();
@@ -78,6 +80,8 @@
             // 
             this.splitC1.Panel1.AllowDrop = true;
             this.splitC1.Panel1.AutoScroll = true;
+            this.splitC1.Panel1.Controls.Add(this.lblFail);
+            this.splitC1.Panel1.Controls.Add(this.lblOk);
             this.splitC1.Panel1.Controls.Add(this.cbAsciiEn);
             this.splitC1.Panel1.Controls.Add(this.cbMbAutoSend);
             this.splitC1.Panel1.Controls.Add(this.linkLabel1);
@@ -101,16 +105,20 @@
             this.splitC1.Panel2.Controls.Add(this.splitC2);
             this.splitC1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.splitC1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitC1.Size = new System.Drawing.Size(1209, 471);
+            this.splitC1.Size = new System.Drawing.Size(1270, 515);
             this.splitC1.SplitterDistance = 55;
             this.splitC1.TabIndex = 35;
             // 
             // cbAsciiEn
             // 
             this.cbAsciiEn.AutoSize = true;
-            this.cbAsciiEn.Location = new System.Drawing.Point(819, 4);
+            this.cbAsciiEn.Checked = true;
+            this.cbAsciiEn.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbAsciiEn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.cbAsciiEn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.cbAsciiEn.Location = new System.Drawing.Point(890, 15);
             this.cbAsciiEn.Name = "cbAsciiEn";
-            this.cbAsciiEn.Size = new System.Drawing.Size(64, 17);
+            this.cbAsciiEn.Size = new System.Drawing.Size(85, 24);
             this.cbAsciiEn.TabIndex = 43;
             this.cbAsciiEn.Text = "Ascii En";
             this.cbAsciiEn.UseVisualStyleBackColor = true;
@@ -121,9 +129,11 @@
             this.cbMbAutoSend.AutoSize = true;
             this.cbMbAutoSend.Checked = true;
             this.cbMbAutoSend.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbMbAutoSend.Location = new System.Drawing.Point(450, 4);
+            this.cbMbAutoSend.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.cbMbAutoSend.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.cbMbAutoSend.Location = new System.Drawing.Point(110, 15);
             this.cbMbAutoSend.Name = "cbMbAutoSend";
-            this.cbMbAutoSend.Size = new System.Drawing.Size(76, 17);
+            this.cbMbAutoSend.Size = new System.Drawing.Size(104, 24);
             this.cbMbAutoSend.TabIndex = 42;
             this.cbMbAutoSend.Text = "Auto Send";
             this.cbMbAutoSend.UseVisualStyleBackColor = true;
@@ -133,7 +143,7 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.linkLabel1.Location = new System.Drawing.Point(1058, 0);
+            this.linkLabel1.Location = new System.Drawing.Point(1119, 0);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(151, 20);
             this.linkLabel1.TabIndex = 41;
@@ -143,9 +153,11 @@
             // cbBinEn
             // 
             this.cbBinEn.AutoSize = true;
-            this.cbBinEn.Location = new System.Drawing.Point(746, 4);
+            this.cbBinEn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.cbBinEn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.cbBinEn.Location = new System.Drawing.Point(811, 15);
             this.cbBinEn.Name = "cbBinEn";
-            this.cbBinEn.Size = new System.Drawing.Size(57, 17);
+            this.cbBinEn.Size = new System.Drawing.Size(75, 24);
             this.cbBinEn.TabIndex = 40;
             this.cbBinEn.Text = "Bin En";
             this.cbBinEn.UseVisualStyleBackColor = true;
@@ -154,9 +166,11 @@
             // cbHexEn
             // 
             this.cbHexEn.AutoSize = true;
-            this.cbHexEn.Location = new System.Drawing.Point(660, 4);
+            this.cbHexEn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.cbHexEn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.cbHexEn.Location = new System.Drawing.Point(725, 15);
             this.cbHexEn.Name = "cbHexEn";
-            this.cbHexEn.Size = new System.Drawing.Size(61, 17);
+            this.cbHexEn.Size = new System.Drawing.Size(80, 24);
             this.cbHexEn.TabIndex = 39;
             this.cbHexEn.Text = "Hex En";
             this.cbHexEn.UseVisualStyleBackColor = true;
@@ -167,9 +181,11 @@
             this.cbGraphEn.AutoSize = true;
             this.cbGraphEn.Checked = true;
             this.cbGraphEn.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbGraphEn.Location = new System.Drawing.Point(571, 4);
+            this.cbGraphEn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.cbGraphEn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.cbGraphEn.Location = new System.Drawing.Point(622, 15);
             this.cbGraphEn.Name = "cbGraphEn";
-            this.cbGraphEn.Size = new System.Drawing.Size(71, 17);
+            this.cbGraphEn.Size = new System.Drawing.Size(97, 24);
             this.cbGraphEn.TabIndex = 38;
             this.cbGraphEn.Text = "Graph En";
             this.cbGraphEn.UseVisualStyleBackColor = true;
@@ -178,47 +194,52 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label2.Location = new System.Drawing.Point(328, 28);
+            this.label2.Location = new System.Drawing.Point(507, 29);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 13);
+            this.label2.Size = new System.Drawing.Size(91, 20);
             this.label2.TabIndex = 37;
-            this.label2.Text = "Reg Order";
+            this.label2.Text = "Reg Order :";
             // 
             // btnStreamEn
             // 
+            this.btnStreamEn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnStreamEn.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.btnStreamEn.Location = new System.Drawing.Point(5, 3);
             this.btnStreamEn.Name = "btnStreamEn";
             this.btnStreamEn.Size = new System.Drawing.Size(99, 52);
             this.btnStreamEn.TabIndex = 30;
-            this.btnStreamEn.Text = "StreamEn";
+            this.btnStreamEn.Text = "Stream";
             this.btnStreamEn.UseVisualStyleBackColor = true;
             this.btnStreamEn.Click += new System.EventHandler(this.btnStreamEn_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label4.Location = new System.Drawing.Point(110, 28);
+            this.label4.Location = new System.Drawing.Point(231, 29);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(21, 13);
+            this.label4.Size = new System.Drawing.Size(30, 20);
             this.label4.TabIndex = 34;
             this.label4.Text = "ID:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label3.Location = new System.Drawing.Point(250, 27);
+            this.label3.Location = new System.Drawing.Point(393, 29);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(56, 13);
+            this.label3.Size = new System.Drawing.Size(92, 20);
             this.label3.TabIndex = 33;
-            this.label3.Text = "Delay (ms)";
+            this.label3.Text = "Delay (ms) :";
             // 
             // cboxRegOrder
             // 
             this.cboxRegOrder.FormattingEnabled = true;
-            this.cboxRegOrder.Location = new System.Drawing.Point(331, 2);
+            this.cboxRegOrder.Location = new System.Drawing.Point(504, 5);
             this.cboxRegOrder.Name = "cboxRegOrder";
             this.cboxRegOrder.Size = new System.Drawing.Size(94, 21);
             this.cboxRegOrder.TabIndex = 36;
@@ -226,7 +247,7 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(171, 3);
+            this.numericUpDown1.Location = new System.Drawing.Point(319, 6);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -250,16 +271,17 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Location = new System.Drawing.Point(168, 28);
+            this.label1.Location = new System.Drawing.Point(270, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 13);
+            this.label1.Size = new System.Drawing.Size(110, 20);
             this.label1.TabIndex = 33;
             this.label1.Text = "GraphPSamp:";
             // 
             // numStreamDel
             // 
-            this.numStreamDel.Location = new System.Drawing.Point(248, 3);
+            this.numStreamDel.Location = new System.Drawing.Point(424, 6);
             this.numStreamDel.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -276,7 +298,7 @@
             // 
             // numAddr
             // 
-            this.numAddr.Location = new System.Drawing.Point(113, 3);
+            this.numAddr.Location = new System.Drawing.Point(220, 6);
             this.numAddr.Maximum = new decimal(new int[] {
             255,
             0,
@@ -301,8 +323,8 @@
             // splitC2.Panel2
             // 
             this.splitC2.Panel2.Controls.Add(this.zg1);
-            this.splitC2.Size = new System.Drawing.Size(1209, 412);
-            this.splitC2.SplitterDistance = 401;
+            this.splitC2.Size = new System.Drawing.Size(1270, 456);
+            this.splitC2.SplitterDistance = 421;
             this.splitC2.TabIndex = 1;
             // 
             // zg1
@@ -324,7 +346,7 @@
             this.zg1.ScrollMinX = 0D;
             this.zg1.ScrollMinY = 0D;
             this.zg1.ScrollMinY2 = 0D;
-            this.zg1.Size = new System.Drawing.Size(804, 412);
+            this.zg1.Size = new System.Drawing.Size(845, 456);
             this.zg1.TabIndex = 0;
             this.zg1.TabStop = false;
             // 
@@ -334,7 +356,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1209, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1270, 24);
             this.menuStrip1.TabIndex = 27;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -361,12 +383,32 @@
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
+            // lblOk
+            // 
+            this.lblOk.AutoSize = true;
+            this.lblOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblOk.Location = new System.Drawing.Point(985, 6);
+            this.lblOk.Name = "lblOk";
+            this.lblOk.Size = new System.Drawing.Size(35, 20);
+            this.lblOk.TabIndex = 44;
+            this.lblOk.Text = "OK:";
+            // 
+            // lblFail
+            // 
+            this.lblFail.AutoSize = true;
+            this.lblFail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblFail.Location = new System.Drawing.Point(985, 29);
+            this.lblFail.Name = "lblFail";
+            this.lblFail.Size = new System.Drawing.Size(38, 20);
+            this.lblFail.TabIndex = 45;
+            this.lblFail.Text = "Fail:";
+            // 
             // FormGraph
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(1209, 495);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ClientSize = new System.Drawing.Size(1270, 539);
             this.Controls.Add(this.splitC1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -416,5 +458,7 @@
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.CheckBox cbMbAutoSend;
         private System.Windows.Forms.CheckBox cbAsciiEn;
+        private System.Windows.Forms.Label lblFail;
+        private System.Windows.Forms.Label lblOk;
     }
 }
