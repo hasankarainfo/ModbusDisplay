@@ -541,8 +541,8 @@ namespace ModbusDisplay
         {
             lock (this)
             {
-                if (isRow(row)) if (this["En", row].Value != DBNull.Value)
-                        return (bool)this["En", row].Value;
+                if (isRow(row)) if (Rows[row].Cells["En"].Value != DBNull.Value)
+                        return (bool)Rows[row].Cells["En"].Value;
             }
             return false;
         }
@@ -552,7 +552,7 @@ namespace ModbusDisplay
         {
             lock (this)
             {
-                if (isRow(row)) this["En", row].Value = val;
+                if (isRow(row)) Rows[row].Cells["En"].Value = val;
             }
 
         }
@@ -560,8 +560,7 @@ namespace ModbusDisplay
         //_ /__ /___ /____ /_____ /______ /_______ /________ /_________ /__________ /
         public bool isRow(int row)
         {
-
-            return (-1 < row && (row + 1) < this.Rows.Count);
+            return (-1 < row && (row + 1) < Rows.Count);
 
         }
 
@@ -570,9 +569,10 @@ namespace ModbusDisplay
         {
             lock (this)
             {
+               
                 if (isRow(row))
-                    if (this[col, row].Value != DBNull.Value)
-                        return (string)this[col, row].Value;
+                    if (Rows[row].Cells[col].Value != DBNull.Value)
+                        return (string)Rows[row].Cells[col].Value;
             }
 
             return null;
@@ -583,8 +583,8 @@ namespace ModbusDisplay
             lock (this)
             {
                 if (isRow(row))
-                    if (this["Len", row].Value != DBNull.Value)
-                        return (long)this["Len", row].Value;
+                    if (Rows[row].Cells["Len"].Value != DBNull.Value)
+                        return (long)Rows[row].Cells["Len"].Value;
             }
 
             return 1;

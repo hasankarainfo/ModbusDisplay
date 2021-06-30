@@ -215,6 +215,7 @@ namespace ModbusDisplay
             short addrNext = 0;
             while (true)
             {
+                
                 if (!ThreadsRunning) break;
 
 
@@ -229,7 +230,7 @@ namespace ModbusDisplay
                 {
                     //this.BeginInvoke((MethodInvoker)delegate
                     //{
-                    NeedTableRefresh = false;
+                   
 
 
                     tAxisMaxLen = (int)numericUpDown1.Value;
@@ -266,6 +267,8 @@ namespace ModbusDisplay
                     }
                     TimLineRead = 0;
                     //});
+
+                    NeedTableRefresh = false;
                 }
 
 
@@ -286,6 +289,8 @@ namespace ModbusDisplay
                 {
                     do
                     {
+                        if (NeedTableRefresh) break;
+
                         for (int i = 0; i < rows.Length && dgv.isRow(i); i++)
                         {
                             if (!rows[i].Changed) continue;
@@ -480,6 +485,8 @@ namespace ModbusDisplay
                 {
                     Thread.Sleep(1);
                 }
+                   
+                
 
                 /* (100 MS DELAY) GORSEL GUNECLLEME*/
                 if ((DateTime.Now.Ticks - dtPer.Ticks) > TimeSpan.TicksPerMillisecond * 100)
@@ -499,6 +506,7 @@ namespace ModbusDisplay
                         int vote = 0;
                         for (int i = 0; i < rows.Length && dgv.isRow(i); i++)
                         {
+                            if (NeedTableRefresh) break;
                             long okTime = (rows[i].cntOk - rows[i].lastOk);
                             long failTime = (rows[i].cntFail - rows[i].lastFail);
 
