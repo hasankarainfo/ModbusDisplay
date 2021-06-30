@@ -1,0 +1,47 @@
+<?xml version="1.0" standalone="yes"?>
+<MyDataSet>
+  <MyDataTable xmlns="MyDataTable">
+    <En>true</En>
+    <Name>SSID</Name>
+    <Type>U8+U8</Type>
+    <Len>16</Len>
+    <Addr>0</Addr>
+    <Value>-</Value>
+    <Hex>47 61 6c 61 78 79 20 41 33 30 41 45 33 35 00 3f b8 c0 fd 3f 29 00 00 00 4c f6 fd 3f 00 00 00 00 </Hex>
+    <Bin>-</Bin>
+    <Ascii>Galaxy A30AE35</Ascii>
+  </MyDataTable>
+  <MyDataTable xmlns="MyDataTable">
+    <En>true</En>
+    <Name>PASSWORD</Name>
+    <Type>U8+U8</Type>
+    <Len>16</Len>
+    <Addr>16</Addr>
+    <Value>-</Value>
+    <Hex>61 73 63 6b 36 32 33 30 00 de fd 3f 00 e8 fc 3f c4 de fd 3f 09 00 00 00 01 00 02 00 cd de fd 3f </Hex>
+    <Bin>-</Bin>
+    <Ascii>asck6230</Ascii>
+  </MyDataTable>
+  <MyDataTable xmlns="MyDataTable">
+    <En>true</En>
+    <Name>CONNECT</Name>
+    <Type>UInt16</Type>
+    <Len>1</Len>
+    <Addr>32</Addr>
+    <Value>1</Value>
+    <Hex>01 </Hex>
+    <Bin>0000 0001 </Bin>
+    <Ascii>&#x1;&#x0;&#x0;&#x0;&#x0;&#x0;&#x0;&#x0;</Ascii>
+  </MyDataTable>
+  <MyDataTable xmlns="MyDataTable">
+    <En>true</En>
+    <Name>HYB_TIMER</Name>
+    <Type>UInt32</Type>
+    <Len>1</Len>
+    <Addr>10000</Addr>
+    <Value>1287970</Value>
+    <Hex>13 a7 22 </Hex>
+    <Bin>1001 1101 0011 1001 0001 </Bin>
+    <Ascii>"�&#x13;&#x0;&#x0;&#x0;&#x0;&#x0;</Ascii>
+  </MyDataTable>
+</MyDataSet>
