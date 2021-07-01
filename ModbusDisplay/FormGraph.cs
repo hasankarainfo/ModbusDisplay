@@ -22,6 +22,8 @@ namespace ModbusDisplay
         bool StreamGraphEn = false;
         bool ThreadsRunning = true;
         bool mbSendCmd = false;
+        DateTime timeFirst;
+        long delayActual = 0;
 
         bool NeedTableRefresh = false;
         byte Identifier = 1;
@@ -29,8 +31,7 @@ namespace ModbusDisplay
         DataSet myDataSet = new DataSet("MyDataSet");
         public dgvLib dgv = new dgvLib("MyDataTable", "MyDataTable");
 
-        long TimLineRead = 0;
-        int tAxisMaxLen;
+        //int tAxisMaxLen;
 
         BackgroundWorker bgwGraphMain = new BackgroundWorker();
 
@@ -40,8 +41,7 @@ namespace ModbusDisplay
         public partial class Rows
         {
             public int[] reg;
-            public PointPairList nList;
-            public double grpLastVal;
+
             public LineItem curve;
             public string type;
             public int len;
@@ -60,8 +60,6 @@ namespace ModbusDisplay
             public Rows()
             {
                 reg = null;
-                nList = new PointPairList();
-                grpLastVal = 0;
                 curve = new LineItem("");
                 type = "";
                 len = 0;
@@ -163,6 +161,7 @@ namespace ModbusDisplay
 
             NeedTableRefresh = true;
 
+
             OpenXmlFile(this.graphFile);
 
             this.FormClosed += ((FormClosedEventHandler)delegate (object sendere, FormClosedEventArgs ee)
@@ -188,16 +187,10 @@ namespace ModbusDisplay
         }
         //_ /__ /___ /____ /_____ /______ /_______ /________ /_________ /__________ /
 
-        public PointPairList getFilledPPList0(int len, int ind)
+        public double getTime()
         {
-            PointPairList nList = new PointPairList();
-            for (long i = 0; i < len; i++)
-            {
-                nList.Add(i, 0, 0, "0,0");
-            }
-            return nList;
+            return ((double)(DateTime.Now.Ticks - timeFirst.Ticks) / TimeSpan.TicksPerMillisecond) / 1000;
         }
-
         //_ /__ /___ /____ /_____ /______ /_______ /________ /_________ /__________ /
 
         //_ /__ /___ /____ /_____ /______ /_______ /________ /_________ /__________ /
@@ -213,6 +206,7 @@ namespace ModbusDisplay
             int readDelayTime = 0;
             bool refreshVal = false;
             short addrNext = 0;
+            int graphSample = 1;
             while (true)
             {
 
@@ -231,11 +225,12 @@ namespace ModbusDisplay
                     //this.BeginInvoke((MethodInvoker)delegate
                     //{
 
+                    timeFirst = DateTime.Now;
 
-
-                    tAxisMaxLen = (int)numericUpDown1.Value;
+                    //tAxisMaxLen = (int)numGraphSample.Value;
 
                     zg1.GraphPane.Title.Text = null;
+
                     zg1.GraphPane.XAxis.Title.Text = " ";
                     zg1.GraphPane.YAxis.Title.Text = " ";
                     zg1.GraphPane.Chart.Fill.Color = SystemColors.ControlLight;
@@ -251,21 +246,14 @@ namespace ModbusDisplay
                             rows[i] = new Rows();
 
                             rows[i].curve = zg1.GraphPane.AddCurve(i.ToString(),
-                                     getFilledPPList0(tAxisMaxLen, i), giveColor(i), SymbolType.None);
+                                     null, giveColor(i), SymbolType.None);
                             rows[i].curve.Tag = dgv.getValStr("Type", i);
                             rows[i].curve.Label.IsVisible = false;
-                            if (dgv.chk(i))
-                            {
-                                rows[i].curve.IsVisible = true;
-                            }
-                            else
-                            {
-                                rows[i].curve.IsVisible = false;
-                            }
+                            //rows[i].curve.Line.IsSmooth = true;
+                            //rows[i].curve.Line.SmoothTension =(float) 0.5;
                         }
 
                     }
-                    TimLineRead = 0;
                     //});
 
                     NeedTableRefresh = false;
@@ -404,15 +392,20 @@ namespace ModbusDisplay
 
 
                 /* (PARAM DELAY) MODBUS OKUMA, GRAFIK GUNCELLEME*/
-                if ((DateTime.Now.Ticks - dtReadPer.Ticks) > TimeSpan.TicksPerMillisecond * readDelayTime)
+                long tdiff =  (DateTime.Now.Ticks - dtReadPer.Ticks) / TimeSpan.TicksPerMillisecond;
+                if (tdiff > readDelayTime)
                 {
+                    delayActual = tdiff;
                     dtReadPer = DateTime.Now;
                     do
                     {
                         if (!StreamGraphEn || NeedTableRefresh) break;
 
-                        if (TimLineRead + 1 < tAxisMaxLen) TimLineRead++;
-                        else TimLineRead = 0;
+                        ////long oldInd = TimLineRead;
+                        //if (TimLineRead + 1 < tAxisMaxLen) TimLineRead++;
+                        //else TimLineRead = 0;
+
+
 
                         addrNext = 0;
                         for (int i = 0; i < rows.Length && dgv.isRow(i); i++)
@@ -468,15 +461,33 @@ namespace ModbusDisplay
                             }
 
                             /*UPDATE CURVE VALUE*/
-                            if (rows[i].curve != null && rows[i].reg != null && !NeedTableRefresh)
+                            do
                             {
-                                do
+                                int pcount = rows[i].curve.Points.Count;
+                                if (pcount > 1)
                                 {
-                                    rows[i].grpLastVal = dgv.typValCnv(dgv.RegToLong(rows[i].reg, i), i);
-                                    rows[i].curve.Points[(int)TimLineRead].Y = rows[i].grpLastVal;
-                                    rows[i].curve.Points[(int)TimLineRead].Tag = rows[i].grpLastVal;
-                                } while (false);
-                            }
+                                    while (true)
+                                    {
+                                        pcount = rows[i].curve.Points.Count;
+                                        double timeDiff = rows[i].curve.Points[pcount - 1].X - rows[i].curve.Points[0].X;
+                                        if (timeDiff < graphSample) break;
+                                        rows[i].curve.RemovePoint(0);
+
+                                    }
+
+                                }
+
+                                double time = getTime();
+                                double yValue = 0;
+                                if (rows[i].curve != null && rows[i].reg != null && !NeedTableRefresh)
+                                {
+                                    yValue = dgv.typValCnv(dgv.RegToLong(rows[i].reg, i), i);
+                                }
+
+                                PointPair myPoint = new PointPair(time, yValue);
+                                rows[i].curve.AddPoint(myPoint);
+                            } while (false);
+
                         }/*for*/
                         refreshVal = false;
                     } while (false);
@@ -498,10 +509,16 @@ namespace ModbusDisplay
 
                     zg1.AxisChange();
                     zg1.Invalidate();
+                    zg1.AutoScaleMode = AutoScaleMode.Font;
+
 
                     this.BeginInvoke((MethodInvoker)delegate
                     {
-                        readDelayTime = (int)numStreamDel.Value;
+
+
+                        label3.Text = "Delay(ms):" + delayActual.ToString();
+                        graphSample = (int)numTime.Value;
+                        readDelayTime = (int)numDelay.Value;
                         long okTotal = 0;
                         long failTotal = 0;
 
@@ -543,7 +560,7 @@ namespace ModbusDisplay
 
                         /*OK VE FAIL LABEL GUNCELLEME*/
                         {
-                            lblOk.Text = "O.K: "+okTotal.ToString();
+                            lblOk.Text = "O.K: " + okTotal.ToString();
                             lblFail.Text = "Fail: " + failTotal.ToString();
                         }
 
@@ -781,7 +798,7 @@ namespace ModbusDisplay
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            NeedTableRefresh = true;
+            //NeedTableRefresh = true;
         }
 
         private void numAddr_ValueChanged(object sender, EventArgs e)

@@ -24,25 +24,14 @@
   </MyDataTable>
   <MyDataTable xmlns="MyDataTable">
     <En>false</En>
-    <Name>CONNECT</Name>
-    <Type>UInt16</Type>
-    <Len>1</Len>
-    <Addr />
-    <Value>91</Value>
-    <Hex>00 5b </Hex>
-    <Bin>0000 0000 0101 1011 </Bin>
-    <Ascii>[&#x0;&#x0;&#x0;&#x0;&#x0;&#x0;&#x0;</Ascii>
-  </MyDataTable>
-  <MyDataTable xmlns="MyDataTable">
-    <En>true</En>
     <Name>mb_test_uint32</Name>
     <Type>UInt32</Type>
     <Len>1</Len>
     <Addr>10000</Addr>
-    <Value>2204638</Value>
-    <Hex>00 21 a3 de </Hex>
-    <Bin>0000 0000 0010 0001 1010 0011 1101 1110 </Bin>
-    <Ascii>ޣ!&#x0;&#x0;&#x0;&#x0;&#x0;</Ascii>
+    <Value>385</Value>
+    <Hex>00 00 01 81 </Hex>
+    <Bin>0000 0000 0000 0000 0000 0001 1000 0001 </Bin>
+    <Ascii>�&#x1;&#x0;&#x0;&#x0;&#x0;&#x0;&#x0;</Ascii>
   </MyDataTable>
   <MyDataTable xmlns="MyDataTable">
     <En>false</En>
@@ -56,47 +45,47 @@
     <Ascii>&#x0;&#x0;</Ascii>
   </MyDataTable>
   <MyDataTable xmlns="MyDataTable">
-    <En>true</En>
+    <En>false</En>
     <Name>mb_test_uint64</Name>
     <Type>UInt64</Type>
     <Len>1</Len>
     <Addr />
-    <Value>2204650</Value>
-    <Hex>00 00 00 00 00 21 a3 ea </Hex>
-    <Bin>0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0010 0001 1010 0011 1110 1010 </Bin>
-    <Ascii>�!&#x0;&#x0;&#x0;&#x0;&#x0;</Ascii>
+    <Value>377</Value>
+    <Hex>00 00 00 00 00 00 01 79 </Hex>
+    <Bin>0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0001 0111 1001 </Bin>
+    <Ascii>y&#x1;&#x0;&#x0;&#x0;&#x0;&#x0;&#x0;</Ascii>
   </MyDataTable>
   <MyDataTable xmlns="MyDataTable">
     <En>true</En>
-    <Name>mb_test_float</Name>
-    <Type>Float</Type>
-    <Len>1</Len>
-    <Addr />
-    <Value>21629,49</Value>
-    <Hex>46 a8 fa fc </Hex>
-    <Bin>0100 0110 1010 1000 1111 1010 1111 1100 </Bin>
-    <Ascii>���F&#x0;&#x0;&#x0;&#x0;</Ascii>
-  </MyDataTable>
-  <MyDataTable xmlns="MyDataTable">
-    <En>false</En>
-    <Name>reserv2</Name>
-    <Type>UInt32</Type>
-    <Len>1</Len>
-    <Addr />
-    <Value>0</Value>
-    <Hex>00 00 00 00 </Hex>
-    <Bin>0000 0000 0000 0000 0000 0000 0000 0000 </Bin>
-    <Ascii>&#x0;&#x0;&#x0;&#x0;&#x0;&#x0;&#x0;&#x0;</Ascii>
-  </MyDataTable>
-  <MyDataTable xmlns="MyDataTable">
-    <En>true</En>
-    <Name>mb_test_double</Name>
+    <Name>mb_test_time</Name>
     <Type>Double</Type>
     <Len>1</Len>
     <Addr />
-    <Value>22046,7199994048</Value>
-    <Hex>40 d5 87 ae 14 78 62 27 </Hex>
-    <Bin>0100 0000 1101 0101 1000 0111 1010 1110 0001 0100 0111 1000 0110 0010 0010 0111 </Bin>
-    <Ascii>'bx&#x14;���@</Ascii>
+    <Value>183,299999999994</Value>
+    <Hex>40 66 e9 99 99 99 98 c2 </Hex>
+    <Bin>0100 0000 0110 0110 1110 1001 1001 1001 1001 1001 1001 1001 1001 1000 1100 0010 </Bin>
+    <Ascii>����f@</Ascii>
+  </MyDataTable>
+  <MyDataTable xmlns="MyDataTable">
+    <En>true</En>
+    <Name>mb_test_sin</Name>
+    <Type>Double</Type>
+    <Len>1</Len>
+    <Addr />
+    <Value>927,484065771544</Value>
+    <Hex>40 8c fb df 5d e0 0f 2a </Hex>
+    <Bin>0100 0000 1000 1100 1111 1011 1101 1111 0101 1101 1110 0000 0000 1111 0010 1010 </Bin>
+    <Ascii>*&#xF;�]���@</Ascii>
+  </MyDataTable>
+  <MyDataTable xmlns="MyDataTable">
+    <En>true</En>
+    <Name>mb_test_cos</Name>
+    <Type>Double</Type>
+    <Len>1</Len>
+    <Addr />
+    <Value>373,862685674682</Value>
+    <Hex>40 77 5d cd 8f 7e 77 c5 </Hex>
+    <Bin>0100 0000 0111 0111 0101 1101 1100 1101 1000 1111 0111 1110 0111 0111 1100 0101 </Bin>
+    <Ascii>�w~��]w@</Ascii>
   </MyDataTable>
 </MyDataSet>
